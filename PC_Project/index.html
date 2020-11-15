@@ -96,6 +96,7 @@
         #head .headMain>.arrow {
             width: 21px;
             height: 11px;
+            z-index: 999;
             background: url(imgs/menuIndicator.png);
             position: absolute;
             bottom: -11px;
@@ -103,10 +104,30 @@
         }
 
         #content {
-            height: 300px;
-            position: relative;
             background: grey;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
         }
+
+        #content .list{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            transition: 1s;
+        }
+
+        #content .list>li{
+            position: relative;
+            background-position: 50% 50% !important;
+        }
+
+        #content .list > .home{background: url(imgs/bg1.jpg);}
+        #content .list > .course{background: url(imgs/bg2.jpg);}
+        #content .list > .works{background: url(imgs/bg3.jpg);}
+        #content .list > .about{background: url(imgs/bg4.jpg);}
+        #content .list > .team{background: url(imgs/bg5.jpg);}
 
         #content .list>li>div {
             width: 1100px;
@@ -199,6 +220,13 @@
         var head = document.querySelector('#head')
         var content = document.querySelector('#content')
         var cListNodes = document.querySelectorAll('#content .list>li')
+        var cList = document.querySelector('#content .list')
+        var now = 0
+
+        window.onresize = function(){
+            contentBind()
+            cList.style.top = - now*(document.documentElement.clientHeight - head.offsetHeight) + 'px'
+        }
 
         //head section
         headBind()
@@ -210,6 +238,8 @@
             for (let i = 0; i < liNodes.length; i++) {
                 liNodes[i].onclick = function () {
                     move(i)
+                    now = i
+                    cList.style.top = - i*(document.documentElement.clientHeight - head.offsetHeight) + 'px'
                 }
             }
         }
@@ -228,6 +258,7 @@
         function contentBind(){
             content.style.height = document.documentElement.clientHeight - head.offsetHeight + 'px'
             for(let i=0; i < cListNodes.length; i++){
+                console.log('s', cListNodes[i].style.height);
                 cListNodes[i].style.height = document.documentElement.clientHeight - head.offsetHeight + 'px'
             }
         }
