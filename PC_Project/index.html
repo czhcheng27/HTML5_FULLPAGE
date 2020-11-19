@@ -53,6 +53,14 @@
             display: block;
         }
 
+        .commonTitle {
+            color: #009ee0;
+            font-size: 80px;
+            line-height: 0.8;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
         /* Head */
         #head {
             background: white;
@@ -110,7 +118,7 @@
             width: 100%;
         }
 
-        #content .list {
+        #content>.list {
             position: absolute;
             left: 0;
             top: 0;
@@ -118,32 +126,103 @@
             transition: 1s;
         }
 
-        #content .list>li {
+        #content>.list>li {
             position: relative;
             background-position: 50% 50% !important;
         }
 
-        #content .list>.home {
+        #content>.list>.home {
             background: url(imgs/bg1.jpg);
         }
 
-        #content .list>.course {
+        #content>.list>.course {
             background: url(imgs/bg2.jpg);
         }
 
-        #content .list>.works {
+        #content>.list>.works {
             background: url(imgs/bg3.jpg);
         }
 
-        #content .list>.about {
+        .works1 {
+            margin: 50px 0px 100px 50px;
+        }
+
+        .works2 {
+            margin-left: 50px;
+        }
+
+        .works2 > .item {
+            position: relative;
+            overflow: hidden;
+            float: left;
+            width: 220px;
+            height: 133px;
+            margin: 0 3px
+        }
+
+        .works2 .mask {
+            position: absolute;
+            top:0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-sizing: border-box;
+            padding: 10px;
+            background: black;
+            opacity: 0;
+            color: white;
+            transition: 0.5s opacity;
+        }
+
+        .works2 .mask:hover {
+            opacity: 0.8;
+        }
+
+        .works2 > .item:hover img{
+            transform: rotate(30deg) scale(1.5);
+        }
+
+        .works2 > .item img{
+            transition: 0.5s transform;
+        }
+
+        .works2 > .item:last-of-type {
+            width: 332px;
+        }
+
+        .works3{
+            width: 167px;
+            height: 191px;background: url(imgs/robot.png) no-repeat;
+            left: 900px;
+            top: 170px;
+            position: absolute;
+            animation: works3Move 5s linear infinite;
+        }
+
+        @keyframes works3Move {
+            49%{
+                transform: translateX(-490px) rotateY(0);
+            }
+            50% {
+                transform: translateX(-500px) rotateY(180deg);
+            }
+            99%{
+                transform: translateX(-10px) rotateY(180deg);
+            }
+            100%{
+                transform: translateX(-0) rotateY(0);
+            }
+        }
+
+        #content>.list>.about {
             background: url(imgs/bg4.jpg);
         }
 
-        #content .list>.team {
+        #content>.list>.team {
             background: url(imgs/bg5.jpg);
         }
 
-        #content .list>li>div {
+        #content .list>li>section {
             width: 1100px;
             height: 520px;
             margin: auto;
@@ -205,19 +284,60 @@
         <section id="content">
             <ul class="list">
                 <li class="home">
-                    <div>Home</div>
+                    <section>Home</section>
                 </li>
                 <li class="course">
-                    <div>Course</div>
+                    <section>Course</section>
                 </li>
                 <li class="works">
-                    <div>Works</div>
+                    <section>
+
+                        <header class="works1 commonTitle">
+                            <span>HELLO</span><br />
+                            <span>I AM</span><br />
+                            <span>ZIHANG CHENG</span><br />
+                        </header>
+
+                        <div class="works2">
+                            <div class="item">
+                                <img src="imgs/worksimg1.jpg" />
+                                <div class="mask">
+                                    <span>test1</span>
+                                    <div class="icon"></div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="imgs/worksimg2.jpg" />
+                                <div class="mask">
+                                    <span>test2</span>
+                                    <div class="icon"></div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="imgs/worksimg3.jpg" />
+                                <div class="mask">
+                                    <span>test3</span>
+                                    <div class="icon"></div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="imgs/worksimg4.jpg" />
+                                <div class="mask">
+                                    <span>test4</span>
+                                    <div class="icon"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="works3"></div>
+
+                    </section>
                 </li>
                 <li class="about">
-                    <div>About</div>
+                    <section>About</section>
                 </li>
                 <li class="team">
-                    <div>Team</div>
+                    <section>Team</section>
                 </li>
             </ul>
         </section>
@@ -257,7 +377,7 @@
                 }
             }
         }
-
+        
         function move(i) {
             for (let j = 0; j < upNodes.length; j++) {
                 upNodes[j].style.width = ''
@@ -274,18 +394,18 @@
             content.addEventListener("DOMMouseScroll", function (ev) {
                 ev = ev || event
                 clearTimeout(timer)
-                timer = setTimeout(function (){
+                timer = setTimeout(function () {
                     fn(ev)
                 }, 200)
             })
         }
         content.onmousewheel = function (ev) {
-                ev = ev || event
-                clearTimeout(timer)
-                timer = setTimeout(function (){
-                    fn(ev)
-                }, 200)
-            }
+            ev = ev || event
+            clearTimeout(timer)
+            timer = setTimeout(function () {
+                fn(ev)
+            }, 200)
+        }
 
         function fn(ev) {
             ev = ev || event
@@ -294,7 +414,7 @@
             if (ev.wheelDelta) {
                 dir = ev.wheelDelta > 0 ? 'up' : 'down'
             } else if (ev.detail) {
-                dir = ev.wheelDelta < 0 ? 'up' : 'down'
+                dir = ev.detail < 0 ? 'up' : 'down'
             }
 
             switch (dir) {
