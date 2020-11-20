@@ -61,6 +61,11 @@
             letter-spacing: -1px;
         }
 
+        .commonText {
+            color: white;
+            line-height: 1.5;
+        }
+
         /* Head */
         #head {
             background: white;
@@ -151,7 +156,7 @@
             margin-left: 50px;
         }
 
-        .works2 > .item {
+        .works2>.item {
             position: relative;
             overflow: hidden;
             float: left;
@@ -162,7 +167,7 @@
 
         .works2 .mask {
             position: absolute;
-            top:0;
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
@@ -178,21 +183,22 @@
             opacity: 0.8;
         }
 
-        .works2 > .item:hover img{
+        .works2>.item:hover img {
             transform: rotate(30deg) scale(1.5);
         }
 
-        .works2 > .item img{
+        .works2>.item img {
             transition: 0.5s transform;
         }
 
-        .works2 > .item:last-of-type {
+        .works2>.item:last-of-type {
             width: 332px;
         }
 
-        .works3{
+        .works3 {
             width: 167px;
-            height: 191px;background: url(imgs/robot.png) no-repeat;
+            height: 191px;
+            background: url(imgs/robot.png) no-repeat;
             left: 900px;
             top: 170px;
             position: absolute;
@@ -200,16 +206,19 @@
         }
 
         @keyframes works3Move {
-            49%{
+            49% {
                 transform: translateX(-490px) rotateY(0);
             }
+
             50% {
                 transform: translateX(-500px) rotateY(180deg);
             }
-            99%{
+
+            99% {
                 transform: translateX(-10px) rotateY(180deg);
             }
-            100%{
+
+            100% {
                 transform: translateX(-0) rotateY(0);
             }
         }
@@ -231,8 +240,52 @@
             right: 0;
             bottom: 0;
             position: absolute;
-            background: pink;
         }
+
+        /* 2nd screen */
+        #content>.list>.course{background: url(imgs/bg2.jpg);}
+
+        #content>.list>.course .course1{margin: 50px;}
+        #content>.list>.course .course2{margin-left: 50px; width: 400px;}
+        #content>.list>.course .course3{
+            position: absolute;
+            width: 480px;
+            right: 50px;
+            top: 70px;
+        }
+        #content>.list>.course .course3 .item{
+            float: left;
+            width: 120px;
+            height: 132px;
+            position: relative;
+            perspective: 500px;
+            transform-style: preserve-3d;
+            }
+
+        #content>.list>.course .course3 .item .face,#content>.list>.course .course3 .item .backFace
+        { position: absolute; top: 0;left: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 15px;}
+
+        #content>.list>.course .course3 .item .face{transition: 1s transform;}
+
+        .backFace{transform: rotateY(180deg); backface-visibility: hidden; transition: 1s transform; background: #009ee0;}
+
+        #content>.list>.course .course3 .item:hover .backFace{transform: rotateY(360deg);}
+
+        #content>.list>.course .course3 .item:hover .face{transform: rotateY(180deg);}
+
+        #content>.list>.course .course3 .item:nth-of-type(1) .face{background: url(imgs/bks.png) no-repeat;background-position: 50% 50%;}
+        #content>.list>.course .course3 .item:nth-of-type(2) .face{background: url(imgs/gu.png) no-repeat;background-position: 50% 50%;}
+        #content>.list>.course .course3 .item:nth-of-type(3) .face{background: url(imgs/binoli.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(4) .face{background: url(imgs/hlx.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(5) .face{background: url(imgs/leonberg.png) no-repeat;background-position: 50% 50%;}
+        #content>.list>.course .course3 .item:nth-of-type(6) .face{background: url(imgs/pcwelt.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(7) .face{background: url(imgs/tata.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(8) .face{background: url(imgs/bks.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(9) .face{background: url(imgs/gu.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(10) .face{background: url(imgs/binoli.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(11) .face{background: url(imgs/leonberg.png) no-repeat; background-position: 50% 50%; }
+        #content>.list>.course .course3 .item:nth-of-type(12) .face{background: url(imgs/tata.png) no-repeat; background-position: 50% 50%; }
+
     </style>
 </head>
 
@@ -287,7 +340,83 @@
                     <section>Home</section>
                 </li>
                 <li class="course">
-                    <section>Course</section>
+                    <section>
+                        <header class="course1 commonTitle">
+                            <span>EINIGE</span><br />
+                            <span>UNSERER</span><br />
+                            <span>KUNDEN</span><br />
+                        </header>
+
+                        <div class="course2 commonText">
+                            <p>
+                                Das Kundenvertrauen in unsere Kompetenz ist die notwendige Basis einer
+                                erfolgreichen Zusammenarbeit,
+                                gleichzeitig aber auch das größte Lob, das man uns entgegenbringen kann.
+                                <br />
+                                Diese und viele weitere große
+                                und kleine Kunden vertrauen uns seit Jahren, was uns stolz macht, und dafür sagen wir an
+                                dieser Stelle
+                                einfach mal.
+                            </p>
+                        </div>
+
+                        <div class="course3">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">hhh</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">ssss</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">aaaaa</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">asdf</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">qqqqq</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">wwwwww</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">ffffff</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">sdsf</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">dscsdv</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">jtghjhgj</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">hhhhhh</div>
+                            </div>
+                            <div class="item">
+                                <div class="face"></div>
+                                <div class="backFace">ffffffff</div>
+                            </div>
+                        </div>
+                    </section>
                 </li>
                 <li class="works">
                     <section>
@@ -377,7 +506,7 @@
                 }
             }
         }
-        
+        move(1)
         function move(i) {
             for (let j = 0; j < upNodes.length; j++) {
                 upNodes[j].style.width = ''
