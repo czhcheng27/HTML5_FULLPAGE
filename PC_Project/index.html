@@ -286,6 +286,18 @@
         #content>.list>.course .course3 .item:nth-of-type(11) .face{background: url(imgs/leonberg.png) no-repeat; background-position: 50% 50%; }
         #content>.list>.course .course3 .item:nth-of-type(12) .face{background: url(imgs/tata.png) no-repeat; background-position: 50% 50%; }
 
+        /* First Sreen */
+        #content>.list>.home .home1{width: 100%; height: 100%;}
+        #content>.list>.home .home1 > li {width: 100%; height: 100%; position: absolute; display: table;}
+        #content>.list>.home .home1>li:nth-of-type(1){background-color: #dc6c5f;}
+        #content>.list>.home .home1>li:nth-of-type(2){background-color: #95dc84;}
+        #content>.list>.home .home1>li:nth-of-type(3){background-color: #64b9d2;}
+        #content>.list>.home .home1>li:nth-of-type(4){background-color: #000000;}
+        #content>.list>.home .home1>li>div{color: white; text-align: center; display: table-cell; vertical-align: middle;}
+
+        #content>.list>.home .home2{position: absolute; left: 0; right: 0; bottom: 0; text-align: center;}
+        #content>.list>.home .home2>li{border-radius: 50%; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.5); display: inline-block; box-shadow: rgba(25, 25, 25, 0.8);}
+
     </style>
 </head>
 
@@ -337,7 +349,29 @@
         <section id="content">
             <ul class="list">
                 <li class="home">
-                    <section>Home</section>
+                    <section>
+                        <ul class="home1">
+                            <li class="commonTitle">
+                                <div>First Layer</div>
+                            </li>
+                            <li class="commonTitle">
+                                <div>Second Layer</div>
+                            </li>
+                            <li class="commonTitle">
+                                <div>Third Layer</div>
+                            </li>
+                            <li class="commonTitle">
+                                <div>Fouth Layer</div>
+                            </li>
+                        </ul>
+
+                        <ul class="home2">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </section>
                 </li>
                 <li class="course">
                     <section>
@@ -506,7 +540,7 @@
                 }
             }
         }
-        move(1)
+        move(0)
         function move(i) {
             for (let j = 0; j < upNodes.length; j++) {
                 upNodes[j].style.width = ''
