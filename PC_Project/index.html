@@ -554,6 +554,7 @@
         var timer = 0
         var home2LiNodes = document.querySelectorAll('#content>.list>.home .home2>li')
         var home1LiNodes = document.querySelectorAll('#content>.list>.home .home1>li')
+        var home1 = document.querySelector('#content>.list>.home .home1')
 
         window.onresize = function () {
             contentBind()
@@ -640,14 +641,18 @@
         }
 
         /* first screen */
-        home3D()
         var oldIndex = 0
         var autoIndex = 0
-        var timer3D
+        var timer3D = 0
+        home3D()
         function home3D(){
+            //manually
             for(var i = 0; i < home2LiNodes.length; i++){
                 home2LiNodes[i].index = i
                 home2LiNodes[i].onclick = function (){
+
+                    clearInterval(timer3D)
+
                     for(var j = 0; j < home2LiNodes.length; j++){
                         home2LiNodes[j].classList.remove('active')
                     }
@@ -675,13 +680,18 @@
                         home1LiNodes[oldIndex].classList.remove('rightShow')
                         home1LiNodes[oldIndex].classList.add('rightHide')
                     }
+                    //manual carousel -> auto carousel
+                    autoIndex = this.index
 
                     oldIndex = this.index
+
+                    autoMove()
                 }
             }
 
-            move()
-            function move(){
+            autoMove()
+            function autoMove(){
+                clearInterval(timer3D)
                 timer3D = setInterval(() => {
 
                     autoIndex++
@@ -689,13 +699,12 @@
                     if(autoIndex == home1LiNodes.length){
                         autoIndex = 0
                     }
-
+                    //Synchronize nav point
                     for(var i = 0; i < home2LiNodes.length; i++){
                         home2LiNodes[i].classList.remove('active')
                     }
                     home2LiNodes[autoIndex].classList.add('active')
 
-                    
                     home1LiNodes[autoIndex].classList.remove('leftShow')
                     home1LiNodes[autoIndex].classList.remove('leftHide')
                     home1LiNodes[autoIndex].classList.remove('rightHide')
@@ -705,9 +714,16 @@
                     home1LiNodes[oldIndex].classList.remove('rightHide')
                     home1LiNodes[oldIndex].classList.remove('rightShow')
                     home1LiNodes[oldIndex].classList.add('leftHide')
-
+                    //auto carousel -> manual carousel
                     oldIndex = autoIndex
                 }, 3000);
+            }
+
+            home1.onmouseenter = function (){
+                clearInterval(timer3D)
+            }
+            home1.onmouseleave = function (){
+                autoMove()
             }
         }
 
