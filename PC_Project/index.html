@@ -287,8 +287,10 @@
         #content>.list>.course .course3 .item:nth-of-type(12) .face{background: url(imgs/tata.png) no-repeat; background-position: 50% 50%; }
 
         /* First Sreen */
-        #content>.list>.home .home1{width: 100%; height: 100%;}
-        #content>.list>.home .home1 > li {width: 100%; height: 100%; position: absolute; display: table;}
+        #content>.list>.home .home1{width: 100%; height: 100%; perspective: 1000px; transform-style: preserve-3d;}
+        #content>.list>.home .home1 > li {width: 100%; height: 100%; position: absolute; display: table; visibility: hidden;}
+        #content>.list>.home .home1 > li.active{visibility: visible;}
+
         #content>.list>.home .home1>li:nth-of-type(1){background-color: #dc6c5f;}
         #content>.list>.home .home1>li:nth-of-type(2){background-color: #95dc84;}
         #content>.list>.home .home1>li:nth-of-type(3){background-color: #64b9d2;}
@@ -296,8 +298,38 @@
         #content>.list>.home .home1>li>div{color: white; text-align: center; display: table-cell; vertical-align: middle;}
 
         #content>.list>.home .home2{position: absolute; left: 0; right: 0; bottom: 0; text-align: center;}
-        #content>.list>.home .home2>li{border-radius: 50%; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.5); display: inline-block; box-shadow: rgba(25, 25, 25, 0.8);}
+        #content>.list>.home .home2>li{border-radius: 50%; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.5); display: inline-block; box-shadow: rgba(25, 25, 25, 0.8); cursor: pointer;}
+        #content>.list>.home .home2>li.active{background: white; cursor: default;}
 
+        /* from left to right, leftHide rightShow */
+        #content>.list>.home .home1 > li.leftHide{visibility: hidden; animation: leftHide 2s 1 linear;}
+        #content>.list>.home .home1 > li.rightShow{visibility: visible; animation: rightShow 2s 1 linear;}
+        @keyframes leftHide{
+            0%{visibility: visible;}
+            50%{transform: translateX(-40%) rotateY(30deg) scale(0.8);}
+            100%{transform: translateZ(-200px);}
+        }
+
+        @keyframes rightShow{
+            0%{visibility: hidden;transform: translateZ(-200px);}
+            50%{transform: translateX(40%) rotateY(-30deg) scale(0.8);}
+            100%{}
+        }
+
+        /* from right to left, leftShow rightHide */
+        #content>.list>.home .home1 > li.leftShow{visibility: visible; animation: leftShow 2s 1 linear;}
+        #content>.list>.home .home1 > li.rightHide{visibility: hidden; animation: rightHide 2s 1 linear;}
+        @keyframes leftShow{
+            0%{visibility: hidden; transform: translateZ(-200px);}
+            50%{transform: translateX(-40%) rotateY(30deg) scale(0.8);}
+            100%{}
+        }
+
+        @keyframes rightHide{
+            0%{visibility: visible;}
+            50%{transform: translateX(40%) rotateY(-30deg) scale(0.8);}
+            100%{transform: translateZ(-200px);}
+        }
     </style>
 </head>
 
@@ -351,7 +383,7 @@
                 <li class="home">
                     <section>
                         <ul class="home1">
-                            <li class="commonTitle">
+                            <li class="commonTitle active">
                                 <div>First Layer</div>
                             </li>
                             <li class="commonTitle">
@@ -366,7 +398,7 @@
                         </ul>
 
                         <ul class="home2">
-                            <li></li>
+                            <li class="active"></li>
                             <li></li>
                             <li></li>
                             <li></li>
@@ -520,6 +552,8 @@
         var cList = document.querySelector('#content .list')
         var now = 0
         var timer = 0
+        var home2LiNodes = document.querySelectorAll('#content>.list>.home .home2>li')
+        var home1LiNodes = document.querySelectorAll('#content>.list>.home .home1>li')
 
         window.onresize = function () {
             contentBind()
@@ -602,6 +636,78 @@
             for (let i = 0; i < cListNodes.length; i++) {
                 console.log('s', cListNodes[i].style.height);
                 cListNodes[i].style.height = document.documentElement.clientHeight - head.offsetHeight + 'px'
+            }
+        }
+
+        /* first screen */
+        home3D()
+        var oldIndex = 0
+        var autoIndex = 0
+        var timer3D
+        function home3D(){
+            for(var i = 0; i < home2LiNodes.length; i++){
+                home2LiNodes[i].index = i
+                home2LiNodes[i].onclick = function (){
+                    for(var j = 0; j < home2LiNodes.length; j++){
+                        home2LiNodes[j].classList.remove('active')
+                    }
+                    this.classList.add('active')
+
+                    //from left to right, current index bigger than previous one, rightShow
+                    if(this.index > oldIndex){
+                        home1LiNodes[this.index].classList.remove('leftShow')
+                        home1LiNodes[this.index].classList.remove('leftHide')
+                        home1LiNodes[this.index].classList.remove('rightHide')
+                        home1LiNodes[this.index].classList.add('rightShow')
+
+                        home1LiNodes[oldIndex].classList.remove('leftShow')
+                        home1LiNodes[oldIndex].classList.remove('rightHide')
+                        home1LiNodes[oldIndex].classList.remove('rightShow')
+                        home1LiNodes[oldIndex].classList.add('leftHide')
+                    } else {// from right to left, current index smaller than previous one
+                        home1LiNodes[this.index].classList.remove('rightShow')
+                        home1LiNodes[this.index].classList.remove('leftHide')
+                        home1LiNodes[this.index].classList.remove('rightHide')
+                        home1LiNodes[this.index].classList.add('leftShow')
+
+                        home1LiNodes[oldIndex].classList.remove('leftShow')
+                        home1LiNodes[oldIndex].classList.remove('leftHide')
+                        home1LiNodes[oldIndex].classList.remove('rightShow')
+                        home1LiNodes[oldIndex].classList.add('rightHide')
+                    }
+
+                    oldIndex = this.index
+                }
+            }
+
+            move()
+            function move(){
+                timer3D = setInterval(() => {
+
+                    autoIndex++
+
+                    if(autoIndex == home1LiNodes.length){
+                        autoIndex = 0
+                    }
+
+                    for(var i = 0; i < home2LiNodes.length; i++){
+                        home2LiNodes[i].classList.remove('active')
+                    }
+                    home2LiNodes[autoIndex].classList.add('active')
+
+                    
+                    home1LiNodes[autoIndex].classList.remove('leftShow')
+                    home1LiNodes[autoIndex].classList.remove('leftHide')
+                    home1LiNodes[autoIndex].classList.remove('rightHide')
+                    home1LiNodes[autoIndex].classList.add('rightShow')
+
+                    home1LiNodes[oldIndex].classList.remove('leftShow')
+                    home1LiNodes[oldIndex].classList.remove('rightHide')
+                    home1LiNodes[oldIndex].classList.remove('rightShow')
+                    home1LiNodes[oldIndex].classList.add('leftHide')
+
+                    oldIndex = autoIndex
+                }, 3000);
             }
         }
 
