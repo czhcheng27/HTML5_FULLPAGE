@@ -330,6 +330,15 @@
             50%{transform: translateX(40%) rotateY(-30deg) scale(0.8);}
             100%{transform: translateZ(-200px);}
         }
+
+
+        /* Fourth Screen */
+        #content > .list > .about {background: url(imgs/bg4.jpg);}
+        .about1 {margin: 50px 0 100px 50px;}
+        .about2 {margin-left: 50px; width: 400px;}
+        .about3 > .item {width: 260px;height: 200px;border: 5px solid rgba(255, 255, 255, 0.5);border-radius: 8px;position: absolute;}
+        .about3 > .item:nth-child(1){left:750px; top: 50px}
+        .about3 > .item:nth-child(2){left:600px; top: 290px}
     </style>
 </head>
 
@@ -529,7 +538,28 @@
                     </section>
                 </li>
                 <li class="about">
-                    <section>About</section>
+                    <section>
+                        <header class="about1 commonTitle">
+                            <span>DIE</span><br/>
+                            <span>SPEZIELLE</span><br/>
+                            <span>VIELFALT</span><br/>
+                        </header>
+                        <div class="about2 commonText">
+                            <p>Der bunte Medienmix ist die Faszination die uns antreibt und das, was man an uns schätzt. Von A bis Z und
+                                von vorne bis hinten nehmen wir Ihr Projekt unter unsere Fittiche und lassen es zu etwas Großartigem
+                                heranwachsen.</p>
+                        </div>
+                        <div class="about3">
+                            <div class="item">
+                                <span></span>
+                                <ul></ul>
+                            </div>
+                            <div class="item">
+                                <span></span>
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </section>
                 </li>
                 <li class="team">
                     <section>Team</section>
@@ -575,7 +605,7 @@
                 }
             }
         }
-        move(0)
+        move(3)
         function move(i) {
             for (let j = 0; j < upNodes.length; j++) {
                 upNodes[j].style.width = ''
