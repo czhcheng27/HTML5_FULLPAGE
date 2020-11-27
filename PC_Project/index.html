@@ -333,12 +333,19 @@
 
 
         /* Fourth Screen */
-        #content > .list > .about {background: url(imgs/bg4.jpg);}
+        #content > .list > .about {background: url(imgs/bg3.jpg);}
         .about1 {margin: 50px 0 100px 50px;}
         .about2 {margin-left: 50px; width: 400px;}
-        .about3 > .item {width: 260px;height: 200px;border: 5px solid rgba(255, 255, 255, 0.5);border-radius: 8px;position: absolute;}
+        .about3 > .item {width: 260px;height: 200px;border: 5px solid rgba(255, 255, 255, 0.5);border-radius: 8px;position: absolute; overflow: hidden;}
         .about3 > .item:nth-child(1){left:750px; top: 50px}
         .about3 > .item:nth-child(2){left:600px; top: 290px}
+        .about3 > .item > span{position: absolute; top: 0; left: 0; right: 0; bottom: 0;}
+        .about3 > .item > ul{position: absolute; top: 0; left: 0; right: 0; bottom: 0;}
+        .about3 > .item:nth-child(1) > span {background: url(imgs/about2.jpg) no-repeat; transform: scale(1.5); transition: 1s transform;}
+        .about3 > .item:nth-child(2) > span {background: url(imgs/about4.jpg) no-repeat; transform: scale(1.5); transition: 1s transform;}
+        .about3 > .item:hover span {transform: scale(1);}
+        .about3 > .item > ul > li {float: left; position: relative; overflow: hidden;}
+        .about3 > .item > ul > li > img {position: absolute; transition: 1s left, 1s top;}
     </style>
 </head>
 
@@ -552,11 +559,11 @@
                         <div class="about3">
                             <div class="item">
                                 <span></span>
-                                <ul></ul>
+                                <ul data-src="imgs/about1.jpg"></ul>
                             </div>
                             <div class="item">
                                 <span></span>
-                                <ul></ul>
+                                <ul data-src="imgs/about3.jpg"></ul>
                             </div>
                         </div>
                     </section>
@@ -585,6 +592,7 @@
         var home2LiNodes = document.querySelectorAll('#content>.list>.home .home2>li')
         var home1LiNodes = document.querySelectorAll('#content>.list>.home .home1>li')
         var home1 = document.querySelector('#content>.list>.home .home1')
+        var aboutUls = document.querySelectorAll('#content>.list>.about .about3>.item>ul')
 
         window.onresize = function () {
             contentBind()
@@ -757,6 +765,65 @@
             }
         }
 
+
+        /* Fouth Screen */
+        picBoom()
+        function picBoom(){
+            for(var i = 0; i < aboutUls.length; i++){
+                change(aboutUls[i])
+            }
+
+            function change(UL){
+                var src = UL.dataset.src
+                var w = UL.offsetWidth/2
+                var h = UL.offsetHeight/2
+                for(var i = 0; i < 4; i++){
+                    var liNode = document.createElement("li")
+                    var imgNode = document.createElement("img")
+                    liNode.style.width = w + 'px'
+                    liNode.style.height = h + 'px'
+
+                    /* 
+                    1. left: 0; top: 0
+                    2. left: -w; top: 0
+                    3. left: 0; top: -h
+                    4. left: -w; top: -h
+                    */
+
+                    imgNode.style.left = -(i%2)*w + 'px'
+                    imgNode.style.top = - Math.floor(i/2)*h +'px'
+
+                    imgNode.src = src
+
+                    liNode.appendChild(imgNode)
+                    UL.appendChild(liNode)
+                }
+
+                UL.onmouseenter = function (){
+                        /* 
+                        1. left: 0; top: h
+                        2. left: -2w; top: 0
+                        3. left: w; top: -h
+                        4. left: -w; top: -2h
+                        */
+                        var imgNodes = this.querySelectorAll('li>img')
+
+                        imgNodes[0].style.top = h + 'px'
+                        imgNodes[1].style.left = -2*w + 'px'
+                        imgNodes[2].style.left = w + 'px'
+                        imgNodes[3].style.top = -2*h + 'px' 
+                    }
+
+                    UL.onmouseleave = function (){
+                        var imgNodes = this.querySelectorAll('li>img')
+
+                        imgNodes[0].style.top = 0 + 'px'
+                        imgNodes[1].style.left = -w + 'px'
+                        imgNodes[2].style.left = 0 + 'px'
+                        imgNodes[3].style.top = -h + 'px' 
+                    }
+            }
+        }
     }
 </script>
 
