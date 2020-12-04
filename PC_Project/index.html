@@ -346,6 +346,26 @@
         .about3 > .item:hover span {transform: scale(1);}
         .about3 > .item > ul > li {float: left; position: relative; overflow: hidden;}
         .about3 > .item > ul > li > img {position: absolute; transition: 1s left, 1s top;}
+
+
+        /* Fivth Screen */
+        .team1{margin: 50px; width: 400px; float: left;}
+        .team2{margin: 50px; width: 400px; float: right;}
+        .team3{width: 944px;height: 448px; position: absolute; left: 50%; top: 30%; transform: scale(0.78); margin-left: -472px;}
+        .team3>li{width: 118px; height: 100%; background: url(imgs/team.png) no-repeat; float: left;}
+        .team3>li:nth-child(1){background-position: 0, 0;}
+        .team3>li:nth-child(2){background-position: -118px, 0;}
+        .team3>li:nth-child(3){background-position: -236px, 0;}
+        .team3>li:nth-child(4){background-position: -354px, 0;}
+        .team3>li:nth-child(5){background-position: -474px, 0;}
+        .team3>li:nth-child(6){background-position: -590px, 0;}
+        .team3>li:nth-child(7){background-position: -708px, 0;}
+        .team3>li:nth-child(8){background-position: -826px, 0;}
+
+        .dot{position: absolute; right: 10px; top: 35%}
+        .dot>li{width: 10px;height: 10px;border: 5px solid pink; border-radius: 50%; margin-top: 5px;}
+        .dot>li.active{background: white;}
+
     </style>
 </head>
 
@@ -569,8 +589,37 @@
                     </section>
                 </li>
                 <li class="team">
-                    <section>Team</section>
+                    <section>
+                        <header class="team1 commonTitle">
+                            <span>WIR SIND</span><br />
+                            <span>VOXELAIR</span><br/>
+                        </header>
+                        <div class="team2">
+                            <p class="commonText">Wir sind seit 2002 eine Full-Service-Werbeagentur mit Stammsitz in Heimsheim,
+                                zwischen Stuttgart und Karlsruhe.</p>
+                            <p class="commonText">Über 60 Jahre Erfahrung vereinen das gesamte VoxelAir-Team. Dabei hat jedes Voxel
+                                neben professionellem Allroundwissen auch sein ganz spezielles Gebiet, um selbst die individuellsten
+                                Kundenwünsche schnell und kompetent umzusetzen.</p>
+                        </div>
+                        <ul class="team3">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </section>
                 </li>
+            </ul>
+            <ul class="dot">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
         </section>
     </section>
@@ -593,6 +642,7 @@
         var home1LiNodes = document.querySelectorAll('#content>.list>.home .home1>li')
         var home1 = document.querySelector('#content>.list>.home .home1')
         var aboutUls = document.querySelectorAll('#content>.list>.about .about3>.item>ul')
+        var dotLis = document.querySelectorAll('#content> .dot > li')
 
         window.onresize = function () {
             contentBind()
@@ -612,8 +662,15 @@
                     now = i
                 }
             }
+
+            for (let i = 0; i < dotLis.length; i++) {
+                dotLis[i].onclick = function () {
+                    move(i)
+                    now = i
+                }
+            }
         }
-        move(3)
+        // move(4)
         function move(i) {
             for (let j = 0; j < upNodes.length; j++) {
                 upNodes[j].style.width = ''
@@ -621,6 +678,12 @@
             upNodes[i].style.width = '100%'
             arrowEl.style.left = liNodes[i].offsetLeft + liNodes[i].offsetWidth / 2 - arrowEl.offsetWidth / 2 + 'px'
             cList.style.top = - i * (document.documentElement.clientHeight - head.offsetHeight) + 'px'
+
+            for (let j = 0; j < dotLis.length; j++) {
+                dotLis[j].className = ''
+            }
+            dotLis[i].className = 'active'
+
         }
 
 
