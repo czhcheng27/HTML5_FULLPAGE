@@ -134,6 +134,7 @@
         #content>.list>li {
             position: relative;
             background-position: 50% 50% !important;
+            overflow: hidden;
         }
 
         #content>.list>.home {
@@ -150,10 +151,14 @@
 
         .works1 {
             margin: 50px 0px 100px 50px;
+            position: relative;
+            z-index: 2;
         }
 
         .works2 {
             margin-left: 50px;
+            position: relative;
+            z-index: 2;
         }
 
         .works2>.item {
@@ -203,6 +208,7 @@
             top: 170px;
             position: absolute;
             animation: works3Move 5s linear infinite;
+            z-index: 2;
         }
 
         @keyframes works3Move {
@@ -249,11 +255,14 @@
 
         #content>.list>.course .course1 {
             margin: 50px;
+            z-index: 2;
         }
 
         #content>.list>.course .course2 {
             margin-left: 50px;
             width: 400px;
+            position: relative;
+            z-index: 2;
         }
 
         #content>.list>.course .course3 {
@@ -261,6 +270,7 @@
             width: 480px;
             right: 50px;
             top: 70px;
+            z-index: 2;
         }
 
         #content>.list>.course .course3 .item {
@@ -672,6 +682,84 @@
         .dot>li.active {
             background: white;
         }
+
+
+
+        /* Anamition */
+        #content>.list>.home .home1,
+        #content>.list>.home .home2 {
+            transition: 1s transform, 1s opacaty;
+        }
+
+        .plane1 {
+            width: 359px;
+            height: 283px;
+            background: url(imgs/plane1.png) no-repeat;
+            position: absolute;
+            left: 300px;
+            top: -100px;
+            transition: 1s transform;
+            z-index: 1;
+        }
+
+        .plane2 {
+            width: 309px;
+            height: 249px;
+            background: url(imgs/plane2.png) no-repeat;
+            position: absolute;
+            left: -100px;
+            top: 200px;
+            transition: 1s transform;
+            z-index: 1;
+        }
+
+        .plane3 {
+            width: 230px;
+            height: 182px;
+            background: url(imgs/plane3.png) no-repeat;
+            position: absolute;
+            left: 300px;
+            top: 400px;
+            transition: 1s transform;
+            z-index: 1;
+        }
+
+        .pencil1 {
+            width: 180px;
+            height: 97px;
+            background: url(imgs/pencel1.png) no-repeat;
+            position: absolute;
+            left: 500px;
+            top: 0px;
+            transition: 1s transform;
+            z-index: 1;
+        }
+
+        .pencil2 {
+            width: 268px;
+            height: 38px;
+            background: url(imgs/pencel2.png) no-repeat;
+            position: absolute;
+            left: 300px;
+            top: 250px;
+            transition: 1s transform;
+            z-index: 1;
+        }
+
+        .pencil3 {
+            width: 441px;
+            height: 231px;
+            background: url(imgs/pencel3.png) no-repeat;
+            position: absolute;
+            left: 650px;
+            top: 300px;
+            transition: 1s transform;
+            z-index: 1;
+        }
+
+        #content>.list>.about .about3>.item, #content>.list>.team .team1, #content>.list>.team .team2 {
+            transition: 1s transform;
+        }
     </style>
 </head>
 
@@ -824,6 +912,10 @@
                                 <div class="backFace">ffffffff</div>
                             </div>
                         </div>
+
+                        <div class="plane1"></div>
+                        <div class="plane2"></div>
+                        <div class="plane3"></div>
                     </section>
                 </li>
                 <li class="works">
@@ -867,6 +959,10 @@
                         </div>
 
                         <div class="works3"></div>
+
+                        <div class="pencil1"></div>
+                        <div class="pencil2"></div>
+                        <div class="pencil3"></div>
 
                     </section>
                 </li>
@@ -960,10 +1056,118 @@
         var team3Lis = document.querySelectorAll('#content>.list>.team .team3 > ul>li')
         var team3 = document.querySelector('#content>.list>.team .team3')
 
+        var preIndex = 0
+
         window.onresize = function () {
             contentBind()
             cList.style.top = - now * (document.documentElement.clientHeight - head.offsetHeight) + 'px'
         }
+
+        /* Anamition */
+        var anArr = [
+            {
+                inAn: function () {
+                    var home1 = document.querySelector('#content>.list>.home .home1')
+                    var home2 = document.querySelector('#content>.list>.home .home2')
+                    home1.style.transform = 'translateY(0px)'
+                    home2.style.transform = 'translateY(0px)'
+                    home1.style.opacity = 1
+                    home2.style.opacity = 1
+                },
+                outAn: function () {
+                    var home1 = document.querySelector('#content>.list>.home .home1')
+                    var home2 = document.querySelector('#content>.list>.home .home2')
+                    home1.style.transform = 'translateY(-400px)'
+                    home2.style.transform = 'translateY(100px)'
+                    home1.style.opacity = 0
+                    home2.style.opacity = 0
+                }
+            },
+            {
+                inAn: function () {
+                    var plane1 = document.querySelector('#content>.list>.course .plane1')
+                    var plane2 = document.querySelector('#content>.list>.course .plane2')
+                    var plane3 = document.querySelector('#content>.list>.course .plane3')
+                    plane1.style.transform = 'translate(0px, 0px)'
+                    plane2.style.transform = 'translate(0px, 0px)'
+                    plane3.style.transform = 'translate(0px, 0px)'
+                    plane1.style.opacity = 1
+                    plane2.style.opacity = 1
+                    plane3.style.opacity = 1
+                },
+                outAn: function () {
+                    var plane1 = document.querySelector('#content>.list>.course .plane1')
+                    var plane2 = document.querySelector('#content>.list>.course .plane2')
+                    var plane3 = document.querySelector('#content>.list>.course .plane3')
+                    plane1.style.transform = 'translate(-200px, -200px)'
+                    plane2.style.transform = 'translate(-200px, 200px)'
+                    plane3.style.transform = 'translate(200px, -200px)'
+                    plane1.style.opacity = 0
+                    plane2.style.opacity = 0
+                    plane3.style.opacity = 0
+                }
+            },
+            {
+                inAn: function () {
+                    var pencil1 = document.querySelector('#content>.list>.works .pencil1')
+                    var pencil2 = document.querySelector('#content>.list>.works .pencil2')
+                    var pencil3 = document.querySelector('#content>.list>.works .pencil3')
+                    pencil1.style.transform = 'translateY(-0px)'
+                    pencil2.style.transform = 'translateY(0px)'
+                    pencil3.style.transform = 'translateY(0px)'
+                    pencil1.style.opacity = 1
+                },
+                outAn: function () {
+                    var pencil1 = document.querySelector('#content>.list>.works .pencil1')
+                    var pencil2 = document.querySelector('#content>.list>.works .pencil2')
+                    var pencil3 = document.querySelector('#content>.list>.works .pencil3')
+                    pencil1.style.transform = 'translateY(-100px)'
+                    pencil2.style.transform = 'translateY(100px)'
+                    pencil3.style.transform = 'translateY(100px)'
+                    pencil1.style.opacity = 0
+                }
+            },
+            {
+                inAn: function () {
+                    var Rect1 = document.querySelector(".about3>.item:nth-child(1)");
+                    var Rect2 = document.querySelector(".about3>.item:nth-child(2)");
+                    Rect1.style.transform = "rotate(0)"
+                    Rect2.style.transform = "rotate(-0)";
+                },
+                outAn: function () {
+                    var Rect1 = document.querySelector(".about3>.item:nth-child(1)");
+                    var Rect2 = document.querySelector(".about3>.item:nth-child(2)");
+                    Rect1.style.transform = "rotate(45deg)"
+                    Rect2.style.transform = "rotate(-45deg)";
+                }
+            },
+            {
+                inAn: function () {
+                    var Rect1 = document.querySelector("#content .list .team .team1");
+                    var Rect2 = document.querySelector("#content .list .team .team2");
+                    // var ren_Wu = document.querySelector("#content .list .team .ren_Wu");
+                    Rect1.style.transform = "translateX(-0)"
+                    Rect1.style.opacity = 1
+                    Rect2.style.transform = "translateX(0)";
+                    Rect2.style.opacity = 1
+                },
+                outAn: function () {
+                    var Rect1 = document.querySelector("#content .list .team .team1");
+                    var Rect2 = document.querySelector("#content .list .team .team2");
+                    // var ren_Wu = document.querySelector("#content .list .team .ren_Wu");
+                    Rect1.style.transform = "translateX(-200px)"
+                    Rect1.style.opacity = 0.5
+                    Rect2.style.transform = "translateX(200px)";
+                    Rect2.style.opacity = 0.5
+                    // ren_Wu.style.transform = "translateY(1000px)";
+                    // ren_Wu.style.opacity = 0.5
+                }
+            },
+        ]
+        anArr[4].outAn()
+        setTimeout(function () {
+            anArr[4].inAn()
+        }, 1000)
 
         //pop function on Fivth Screen
         pop()
@@ -1079,6 +1283,7 @@
 
             for (let i = 0; i < liNodes.length; i++) {
                 liNodes[i].onclick = function () {
+                    preIndex = now
                     move(i)
                     now = i
                 }
@@ -1086,12 +1291,13 @@
 
             for (let i = 0; i < dotLis.length; i++) {
                 dotLis[i].onclick = function () {
+                    preIndex = now
                     move(i)
                     now = i
                 }
             }
         }
-        move(4)
+        // move(4)
         function move(i) {
             for (let j = 0; j < upNodes.length; j++) {
                 upNodes[j].style.width = ''
@@ -1104,6 +1310,13 @@
                 dotLis[j].className = ''
             }
             dotLis[i].className = 'active'
+
+            if(anArr[i]&&typeof anArr[i]['inAn'] === 'function'){
+                anArr[i]['inAn']()
+            }
+            if(anArr[preIndex]&&typeof anArr[preIndex]['outAn'] === 'function'){
+                anArr[preIndex]['outAn']()
+            }
 
         }
 
@@ -1136,6 +1349,8 @@
             } else if (ev.detail) {
                 dir = ev.detail < 0 ? 'up' : 'down'
             }
+
+            preIndex = now
 
             switch (dir) {
                 case 'up':
