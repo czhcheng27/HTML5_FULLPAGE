@@ -762,7 +762,7 @@
         }
 
         /* audio */
-        .music{background: url(imgs/musicon.gif); float: left; margin: 50px 0 0 5px; width: 14px; height: 14px;}
+        .music{background: url(imgs/musicoff.gif); float: left; margin: 50px 0 0 5px; width: 14px; height: 14px;}
     </style>
 </head>
 
@@ -775,7 +775,7 @@
                         <img src="imgs/logo.png" />
                 </h1>
                 <div class="music">
-                    <audio src="imgs/audio.mp3" loop autoplay></audio>
+                    <audio src="imgs/audio.mp3" loop autoplay='autoplay'></audio>
                 </div>
                 <nav class="nav">
                     <ul class="list clearfix">
@@ -1063,6 +1063,19 @@
         var team3 = document.querySelector('#content>.list>.team .team3')
 
         var preIndex = 0
+
+        /* audio */
+        var music = document.querySelector('#head > .headMain .music')
+        var audio = document.querySelector('#head > .headMain .music audio')
+        music.onclick = function (){
+            if(audio.paused){
+                audio.play()
+                music.style.background = 'url(imgs/musicon.gif)'
+            }else{
+                audio.pause()
+                music.style.background = 'url(imgs/musicoff.gif)'
+            }
+        }
 
         window.onresize = function () {
             contentBind()
